@@ -31,3 +31,21 @@ post '/ideas' do
     erb :'ideas/new'
   end
 end
+
+
+get '/ideas/:id' do
+  @idea = Idea.find(params[:id])
+  erb :'ideas/show'
+end
+
+helpers do
+  def delete_idea_button(idea_id)
+    erb :'ideas/_delete_idea_button', locals: { idea_id: idea_id }
+  end
+end
+
+delete '/ideas/:id' do
+  Idea.find(params[:id]).destroy
+  redirect '/ideas'
+end
+
